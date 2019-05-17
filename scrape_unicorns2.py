@@ -9,51 +9,27 @@ to experiment.
 """
 
 # -*- coding: utf-8 -*-
-# Source: #Source website: https://www.makcyun.top/web_scraping_withpython7.html#more
 import pymongo
 import time
 from fake_useragent import UserAgent
-import socket  # 断线重试
+import socket
 try:
     from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
 import pandas as pd
 
-# 随机ua
 ua = UserAgent()
-# mongodb数据库初始化
 client = pymongo.MongoClient('localhost', 27017)
-# 获得数据库
 db = client.ITjuzi
-# 获得集合
 import requests
 
 cookies = {
-    'acw_tc': '781bad0815535821377096796e2fec58f0b64310e1ebf920d611ba627578bf',
-    'gr_user_id': '82583968-1f7f-41ca-8b7c-d7d4962137a8',
-    '_ga': 'GA1.2.166764703.1553582145',
-    '_gid': 'GA1.2.941286576.1553582145',
-    'Hm_lvt_1c587ad486cdb6b962e94fc2002edf89': '1553008844,1553060133,1553079558,1553582145',
-    'juzi_user': '660423',
-    'gr_session_id_eee5a46c52000d401f969f4535bdaa78': 'c3457dcd-3702-40e4-b1b1-60acb62b0cd5',
-    'gr_session_id_eee5a46c52000d401f969f4535bdaa78_c3457dcd-3702-40e4-b1b1-60acb62b0cd5': 'true',
-    'juzi_token': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvd3d3Lml0anV6aS5jb21cL2FwaVwvdXNlcnNcL3VzZXJfaGVhZGVyX2luZm8iLCJpYXQiOjE1NTM1ODc0MDEsImV4cCI6MTU1MzY2MzkwMywibmJmIjoxNTUzNjYwMzAzLCJqdGkiOiI3RmhQR2VERWpvQUlQZUFYIiwic3ViIjo2NjA0MjMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.4Txd6JgJpug8i68u5Yj9sEfQ0XWwsqWMgffYuLeTQnw',
-    '_gat_gtag_UA_59006131_1': '1',
-    'Hm_lpvt_1c587ad486cdb6b962e94fc2002edf89': '1553660453',
+
 }
 
 headers = {
-    'Connection': 'keep-alive',
-    'Pragma': 'no-cache',
-    'Cache-Control': 'no-cache',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36',
-    'DNT': '1',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-    'Referer': 'https://www.itjuzi.com/company',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'en-US,en;q=0.9,es-419;q=0.8,es;q=0.7,zh-CN;q=0.6,zh;q=0.5,ja;q=0.4',
+    
 }
 
 
@@ -98,7 +74,7 @@ class itjuzi_scraper(object):
                 df = pd.DataFrame(info)
                 return df
             except socket.timeout:
-                print('下载id{}，第{}次网页请求超时'.format(id, retrytimes))
+                print('Downloaded id{}，Retry attempt {}'.format(id, retrytimes))
                 retrytimes -= 1
             except IndexError as e:
                 print('IndexError: {}'.format(str(e)))

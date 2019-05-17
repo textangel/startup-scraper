@@ -1,8 +1,6 @@
-from selenium_scraper.utils import append_df_to_excel
-from selenium import webdriver
+# coding=utf8
 import time
 import pandas as pd
-# coding=utf8
 from selenium_scraper.utils import append_df_to_excel
 from selenium import webdriver
 from selenium.webdriver.common.by import By
